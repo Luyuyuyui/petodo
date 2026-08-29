@@ -1,0 +1,28 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+dist-electron/
+web-dist/
+release/
+release-fresh/
+release-fresh3/
+release-next/
+
+# 本地用户数据（绝不提交）
+petodo-data.json
+petodo-backup.json
+petodo-*.jpg
+
+# 调试与临时文件
+*.ps1
+*.mjs
+dev.log
+smoke-test.png
+shots/
+vibe_images/
+
+# 系统文件
+Thumbs.db
+.DS_Store

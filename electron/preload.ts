@@ -1,0 +1,30 @@
+import { contextBridge, ipcRenderer } from 'electron';
+import type { Mode, PanelShow, View } from '../src/types';
+
+contextBridge.exposeInMainWorld('desktop', {
+  load: () => ipcRenderer.invoke('data:load'),
+  save: (d: unknown) => ipcRenderer.invoke('data:save', d),
+  onData: (fn: () => void) => ipcRenderer.on('data:changed', fn),
+  iconHover: () => ipcRenderer.send('icon:hover'),
+  iconLeave: () => ipcRenderer.send('icon:leave'),
+  onIconExpand: (fn: (mode: Mode) => void) => ipcRenderer.on('icon:expand', (_, m) => fn(m)),
+  onIconCollapse: (fn: () => void) => ipcRenderer.on('icon:collapse', fn),
+  iconCollapsed: () => ipcRenderer.send('icon:collapsed'),
+  panelHover: () => ipcRenderer.send('panel:hover'),
+  panelLeave: () => ipcRenderer.send('panel:leave'),
+  onPanelShow: (fn: (v: PanelShow) => void) => ipcRenderer.on('panel:show', (_, v) => fn(v)),
+  onPanelHide: (fn: () => void) => ipcRenderer.on('panel:hide', fn),
+  panelHidden: () => ipcRenderer.send('panel:hidden'),
+  setMode: (m: Mode) => ipcRenderer.send('mode:set', m),
+  onMode: (fn: (m: Mode) => void) => ipcRenderer.on('mode:change', (_, m) => fn(m)),
+  menu: () => ipcRenderer.send('menu:show'),
+  full: (view: View, focus?: boolean) => ipcRenderer.send('panel:full', view, focus),
+  closePanel: () => ipcRenderer.send('panel:close'),
+  quit: () => ipcRenderer.send('app:quit'),
+  dragStart: (sx: number, sy: number) => ipcRenderer.send('icon:drag-start', sx, sy),
+  dragMove: (sx: number, sy: number) => ipcRenderer.send('icon:drag-move', sx, sy),
+  dragEnd: () => ipcRenderer.send('icon:drag-end'),
+  exportFile: (c: string, n: string) => ipcRenderer.invoke('file:export', c, n),
+  importFile: () => ipcRenderer.invoke('file:import'),
+  uploadImage: (kind?: 'pet' | 'bg') => ipcRenderer.invoke('image:upload', kind),
+});

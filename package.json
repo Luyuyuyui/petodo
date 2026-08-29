@@ -1,0 +1,29 @@
+{
+  "name": "petodo",
+  "version": "1.0.0",
+  "description": "Windows 桌面悬浮效率工具",
+  "main": "dist-electron/electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && set VITE_DEV_SERVER_URL=http://localhost:5173&& electron . --remote-debugging-port=9222\"",
+    "build": "tsc -p tsconfig.electron.json && vite build",
+    "start": "electron .",
+    "package:win": "npm run build && electron-builder --win portable -c.directories.output=release-next"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@vitejs/plugin-react": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "concurrently": "latest",
+    "electron": "latest",
+    "electron-builder": "latest",
+    "typescript": "latest",
+    "wait-on": "latest"
+  },
+  "build": { "appId": "com.petodo.desktop", "productName": "Petodo", "directories": { "output": "release" }, "files": ["web-dist/**/*", "dist-electron/**/*", "package.json"], "win": { "icon": "build/icon.png" } }
+}

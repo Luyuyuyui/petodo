@@ -72,18 +72,26 @@
 
 ## 🚀 快速开始
 
+### 直接使用
+
+去 GitHub Releases 下载 `Petodo 1.0.0.exe`（Windows 便携版），**双击即用**——无需安装，无需 Node.js，绿色免安装。
+
+数据保存在本地 `%APPDATA%\petodo\`，卸载时删除该文件夹即可，不留痕迹。
+
+### 从源码构建（开发者）
+
 ```bash
-# 克隆项目
+# 克隆项目（需要 Node.js 20+，Windows 10/11）
 git clone https://github.com/Luyuyuyui/petodo.git
 cd petodo
 
 # 安装依赖
 npm install
 
-# 启动开发模式（Node.js 20+，Windows 10/11）
+# 启动开发模式
 npm run dev
 
-# 打包 Windows 便携版
+# 打包 Windows 便携版（输出到 release-next/Petodo 1.0.0.exe）
 npm run package:win
 ```
 
